@@ -1,10 +1,7 @@
 <?php
 
-// Emplacement du système
-define('BASE', realpath(dirname(__FILE__) . '/../') . '/');
-
 // Chargement de la configuration
-$config = include_once BASE . 'system/config.php';
+$config = include_once dirname(__FILE__) . '/config.php';
 
 // Niveau d'erreur
 error_reporting($config['debug'] ? E_ALL : 0);

@@ -7,7 +7,7 @@ if (php_sapi_name() != 'cli') {
 include dirname(__FILE__) . '/../init.php';
 echo "Running {$config['host']}\n";
 
-$xml = file_get_contents(BASE . 'install/data/Modules-X.xml');
+$xml = @file_get_contents(BASE . 'system/install/data/Modules-X.xml');
 if (!$xml) {
     exit("Error: Modules file not found\n");
 }
@@ -22,7 +22,7 @@ if ($xml === false) {
     exit();
 }
 
-include BASE . 'models/Produit.php';
+include BASE . 'system/entities.php';
 
 foreach ($xml->produit as $produit) {
     
@@ -30,3 +30,5 @@ foreach ($xml->produit as $produit) {
     $em->persist($model);
     
 }
+
+$em->flush();
