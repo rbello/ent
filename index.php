@@ -1,11 +1,13 @@
 <?php
 
-error_reporting(E_ALL);
+// Chargement de la configuration
+$config = include_once 'config/load.php';
 
-require_once "vendor/autoload.php";
+// Niveau d'erreur
+error_reporting($config['debug'] ? E_ALL : 0);
 
-include_once "config/load.php";
+// Librairies tiers
+require_once 'vendor/autoload.php';
 
-$entityManager = EntityManager::create($conn, $config);
-
-?>
+// EntityManager
+$entityManager = \Doctrine\DBAL\DriverManager::getConnection($config['connectionParams'], new \Doctrine\DBAL\Configuration());

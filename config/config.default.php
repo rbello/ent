@@ -6,5 +6,6 @@ return array(
         'password' => 'secret',
         'host'     => 'localhost',
         'driver'   => 'pdo_mysql'
-    )
+    ),
+    'debug' => false
 );
