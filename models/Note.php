@@ -1,5 +1,7 @@
 <?php
 
+namespace Models;
+
 /**
  * @Entity
  * @Table(name="notes")

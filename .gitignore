@@ -4,4 +4,4 @@
 composer.lock
 vendor
 config/config.ent-rbello.c9.io.php
-install/data/*
+system/install/data/*

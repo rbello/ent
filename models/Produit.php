@@ -1,5 +1,7 @@
 <?php
 
+namespace Models;
+
 /**
  * @Entity
  * @Table(name="produits")
@@ -24,5 +26,9 @@ class Produit
      * @var UE[]
      **/
     protected $ues = null;
+    
+    public static function create($id, $name, $referentiel, $date) {
+        
+    }
 
 }
