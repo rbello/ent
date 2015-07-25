@@ -1,7 +1,11 @@
+# Meta
 .c9
 .git
-.gitattributes
+
+# Dynamic
 composer.lock
-vendor
+system/lib/*
+
+# Specific
 config/config.ent-rbello.c9.io.php
 system/install/data/*
