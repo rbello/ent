@@ -3,7 +3,7 @@
 case "$1" in
 
     clean)
-        rm -rf vendor/
+        rm -rf system/lib
         rm -f composer.lock
         rm -f php_errors.log
         ;;

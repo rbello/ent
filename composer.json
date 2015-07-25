@@ -4,6 +4,9 @@
     "homepage": "http://www.test.com",
     "type": "project",
     "license": "MIT",
+    "config": {
+        "vendor-dir": "system/lib"
+    },
     "require": {
         "php": ">=5.4.16",
         "twbs/bootstrap": "~3.0",
