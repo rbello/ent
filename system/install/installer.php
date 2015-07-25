@@ -23,10 +23,15 @@ if ($xml === false) {
 }
 
 include BASE . 'system/entities.php';
+include BASE . 'system/Models/Produit.php';
+
 
 foreach ($xml->produit as $produit) {
     
-    $model = \Models\Produit::create($produit['id'], $produit['name'], $produit['referentiel'], $produit['date']);
+    $model = new  \Models\Produit();
+    $model->setId($produit['id']);
+    $model->setName($produit['name']);
+    $model->setReferentiel($produit['referentiel']);
     $em->persist($model);
     
 }

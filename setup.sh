@@ -22,8 +22,13 @@ case "$1" in
         echo "Install data..."
         php system/install/installer.php
         ;;
+        
+    install-data)
+        echo "Install data..."
+        php system/install/installer.php
+        ;;
 
     *)
-        echo "Usage: setup <install|update|clean>"
+        echo "Usage: setup <install|install-data|update|clean>"
         ;;
 esac
