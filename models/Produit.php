@@ -2,6 +2,8 @@
 
 namespace Models;
 
+require_once 'UE.php';
+
 /**
  * @Entity
  * @Table(name="produits")
@@ -28,7 +30,12 @@ class Produit
     protected $ues = null;
     
     public static function create($id, $name, $referentiel, $date) {
-        
+        $e = new Produit();
+        $e->id = $id;
+        $e->name = $name;
+        $e->referentiel = $referentiel;
+        $e->date = $date;
+        return $e;
     }
 
 }

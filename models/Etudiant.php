@@ -28,7 +28,7 @@ class Etudiant extends Personne
      * @param string codeAnalytique
      * @return StageEntreprise[]
      */
-    public function getStagesByYear($codeAnalytique) {
+    public function getStagesByCodeAnalytique($codeAnalytique) {
         // TODO
     }
     
