@@ -2,6 +2,8 @@
 
 namespace Models;
 
+require_once 'Personne.php';
+
 /**
  * @Entity
  * @Table(name="interlocuteurs")

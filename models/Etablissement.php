@@ -1,4 +1,4 @@
-<?
+<?php
 
 namespace Models;
 
@@ -13,7 +13,7 @@ class Etablissement
     protected $id;
     
     /** @Column(type="string") **/
-    protected $name ;
+    protected $name;
     
     /** @Column(type="string", length=2, unique=true) **/
     protected $racine;

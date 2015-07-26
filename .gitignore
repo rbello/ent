@@ -2,7 +2,10 @@
 .c9
 .git
 
-# Dynamic
+# Artefacts
+php_errors.log
+
+# Generated
 composer.lock
 system/lib/*
 system/Models/*

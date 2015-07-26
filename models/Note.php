@@ -18,7 +18,7 @@ class Note
     /** @ManyToOne(targetEntity="ElementEvaluable") **/
     protected $elementEvaluable;
     
-    /** @Column(type="string", columnDefinition="ENUM('A', 'B', 'C', 'Cna', 'Cac' 'D')") */
+    /** @Column(type="string", columnDefinition="ENUM('A', 'B', 'C', 'Cna', 'Cac', 'D')") */
     protected $value;
     
 }
