@@ -15,18 +15,25 @@ class Produit
     protected $id;
     
     /** @Column(type="string") **/
-    protected $name;
+    public $name;
     
     /** @Column(type="string") **/
-    protected $referentiel;
+    public $referentiel;
     
     /** @Column(type="string") **/
-    protected $date;
+    public $date;
     
     /**
      * @OneToMany(targetEntity="UE", mappedBy="product")
      * @var UE[]
      **/
     protected $ues = null;
+
+    /**
+     * Constructeur
+     */
+    public function __construct($id) {
+        $this->id = $id;
+    }
 
 }

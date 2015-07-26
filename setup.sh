@@ -15,13 +15,15 @@ case "$1" in
     update)
         echo "Update dependencies..."
         composer update
+        echo "Update entities..."
+        php $SCRIPT/system/lib/doctrine/orm/bin/doctrine orm:generate-entities --update-entities system
         ;;
         
     install)
         echo "Update dependencies..."
         composer update
         echo "Generate entities..."
-        php $SCRIPT/system/lib/doctrine/orm/bin/doctrine orm:generate:entities system
+        php $SCRIPT/system/lib/doctrine/orm/bin/doctrine orm:generate-entities --regenerate-entities=true --verbose --generate-annotations=true -- system
         echo "Prepare SQL database..."
         php $SCRIPT/system/lib/doctrine/orm/bin/doctrine orm:schema-tool:create
         echo "Install data..."
