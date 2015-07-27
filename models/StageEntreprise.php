@@ -2,18 +2,24 @@
 
 namespace Models;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * @Entity
- * @Table(name="stageentreprise")
+ * @ORM\Entity
+ * @ORM\Table(name="stageentreprise")
  **/
 class StageEntreprise
 {
 
-    /** @Id @Column(type="integer") @GeneratedValue **/
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     **/
     protected $id;
 
     /**
-     * @ManyToOne(targetEntity="Interlocuteur")
+     * @ORM\ManyToOne(targetEntity="Interlocuteur")
      * @var Interlocuteur
      **/
     protected $tuteur;
@@ -25,7 +31,7 @@ class StageEntreprise
     protected $entreprise;
 
     /**
-     * @ManyToOne(targetEntity="Inscription", inversedBy="stages")
+     * @ORM\ManyToOne(targetEntity="Inscription", inversedBy="stages")
      * @var Inscription
      **/
     protected $inscription;
@@ -36,10 +42,10 @@ class StageEntreprise
      **/
     protected $etudiant;
     
-    /** @Column(type="date") **/
+    /** @ORM\Column(type="date") **/
     protected $stageBegin;
     
-    /** @Column(type="date") **/
+    /** @ORM\Column(type="date") **/
     protected $stageEnd;
 
 }

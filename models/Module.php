@@ -2,26 +2,47 @@
 
 namespace Models;
 
+use Doctrine\ORM\Mapping as ORM;
+
+require_once 'ElementEvaluable.php';
+
 /**
- * @Entity
- * @Table(name="modules")
+ * @ORM\Entity
+ * @ORM\Table(name="modules")
  **/
 class Module
 {
 
-    /** @Id @Column(type="integer") @GeneratedValue **/
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     **/
     protected $id;
     
-    /** @Column(type="string") **/
+    /**
+     * @ORM\Column(type="string")
+     **/
     protected $name;
     
-    /** @ManyToOne(targetEntity="UE", inversedBy="modules") **/
+    /**
+     * @ORM\ManyToOne(targetEntity="UE", inversedBy="modules")
+     * @var UE
+     **/
     protected $ue;
     
     /**
-     * @OneToMany(targetEntity="ElementEvaluable", mappedBy="module")
+     * @ORM\OneToMany(targetEntity="ElementEvaluable", mappedBy="module")
      * @var ElementEvaluable[]
      **/
     protected $elementsEvaluables = null;
+    
+    public function setName($value) {
+        $this->name = $value;
+    }
+    
+    public function setUE($value) {
+        $this->ue = $value;
+    }
     
 }

@@ -2,20 +2,40 @@
 
 namespace Models;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * @Entity
- * @Table(name="etablissements")
+ * @ORM\Entity
+ * @ORM\Table(name="etablissements")
  **/
 class Etablissement
 {
 
-    /** @Id @Column(type="integer") @GeneratedValue **/
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     **/
     protected $id;
     
-    /** @Column(type="string") **/
+    /** @ORM\Column(type="string") **/
     protected $name;
     
-    /** @Column(type="string", length=2, unique=true) **/
+    /** @ORM\Column(type="string", length=2, unique=true) **/
     protected $racine;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Session", mappedBy="etablissement")
+     * @var Session[]
+     **/
+    protected $sessions = null;
+    
+    public function setName($value) {
+        $this->name = $value;
+    }
+    
+    public function setRacineAnalytique($value) {
+        $this->racine = $value;
+    }
     
 }

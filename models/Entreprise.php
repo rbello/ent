@@ -2,24 +2,26 @@
 
 namespace Models;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * @Entity
- * @Table(name="entreprises")
+ * @ORM\Entity
+ * @ORM\Table(name="entreprises")
  **/
 class Entreprise
 {
     
     /**
      * Identifiant, identique au CodeEntreprise dans BORA.
-     * @Id
-     * @Column(type="integer")
+     * @ORM\Id
+     * @ORM\Column(type="integer")
      **/
     protected $id;
     
-    /** @Column(type="string") **/
+    /** @ORM\Column(type="string") **/
     protected $name;
     
-    /** @Column(type="string") **/
+    /** @ORM\Column(type="string") **/
     protected $region;
 
 }

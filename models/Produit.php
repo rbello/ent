@@ -2,38 +2,65 @@
 
 namespace Models;
 
+use Doctrine\ORM\Mapping as ORM;
+
 require_once 'UE.php';
+require_once 'Session.php';
 
 /**
- * @Entity
- * @Table(name="produits")
+ * @ORM\Entity
+ * @ORM\Table(name="produits")
  **/
 class Produit
 {
 
-    /** @Id @Column(type="integer") **/
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     **/
     protected $id;
     
-    /** @Column(type="string") **/
+    /**
+     * @ORM\Column(type="string")
+     **/
     public $name;
     
-    /** @Column(type="string") **/
+    /**
+     * @ORM\Column(type="string")
+     **/
     public $referentiel;
     
-    /** @Column(type="string") **/
+    /**
+     * @ORM\Column(type="date")
+     **/
     public $date;
     
     /**
-     * @OneToMany(targetEntity="UE", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="UE", mappedBy="product")
      * @var UE[]
      **/
     protected $ues = null;
-
+    
     /**
-     * Constructeur
-     */
-    public function __construct($id) {
-        $this->id = $id;
+     * @ORM\OneToMany(targetEntity="Session", mappedBy="product")
+     * @var Session[]
+     **/
+    protected $sessions = null;
+
+    public function setId($value) {
+        $this->id = $value;
+    }
+    
+    public function setName($value) {
+        $this->name = $value;
+    }
+    
+    public function setReferentiel($value) {
+        $this->referentiel = $value;
+    }
+    
+    public function setDate(\DateTime $value) {
+        $this->date = $value;
     }
 
 }

@@ -2,32 +2,66 @@
 
 namespace Models;
 
+use Doctrine\ORM\Mapping as ORM;
+
+require_once 'Module.php';
+
 /**
- * @Entity
- * @Table(name="ues")
+ * @ORM\Entity
+ * @ORM\Table(name="ues")
  **/
 class UE
 {
 
-    /** @Id @Column(type="integer") **/
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     **/
     protected $id;
     
-    /** @Column(type="string") **/
+    /** @ORM\Column(type="string") **/
+    protected $code;
+    
+    /** @ORM\Column(type="string") **/
     protected $name;
     
-    /** @Column(type="string") **/
+    /** @ORM\Column(type="string") **/
     protected $axePeda;
     
-    /** @Column(type="integer") **/
+    /** @ORM\Column(type="integer") **/
     protected $ects;
     
-    /** @ManyToOne(targetEntity="Produit", inversedBy="ues") **/
+    /**
+     * @ORM\ManyToOne(targetEntity="Produit", inversedBy="ues")
+     * @var Produit
+     **/
     protected $product;
     
     /**
-     * @OneToMany(targetEntity="Module", mappedBy="ue")
+     * @ORM\OneToMany(targetEntity="Module", mappedBy="ue")
      * @var Module[]
      **/
     protected $modules = null;
+    
+    public function setCode($value) {
+        $this->code = $value;
+    }
+    
+    public function setName($value) {
+        $this->name = $value;
+    }
+    
+    public function setAxePeda($value) {
+        $this->axePeda = $value;
+    }
+    
+    public function setEcts($value) {
+        $this->ects = $value;
+    }
+    
+    public function setProduct(Produit $value) {
+        $this->product = $value;
+    }
     
 }

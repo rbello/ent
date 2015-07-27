@@ -2,20 +2,26 @@
 
 namespace Models;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * @Entity
- * @Table(name="elementsevaluables")
+ * @ORM\Entity
+ * @ORM\Table(name="elementsevaluables")
  **/
 class ElementEvaluable
 {
 
-    /** @Id @Column(type="integer") @GeneratedValue **/
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     **/
     protected $id;
     
-    /** @Column(type="string") **/
+    /** @ORM\Column(type="string") **/
     protected $name;
     
-    /** @ManyToOne(targetEntity="Module", inversedBy="elementsEvaluables") **/
+    /** @ORM\ManyToOne(targetEntity="Module", inversedBy="elementsEvaluables") **/
     protected $module;
     
 }

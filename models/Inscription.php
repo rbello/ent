@@ -2,41 +2,46 @@
 
 namespace Models;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * @Entity
- * @Table(name="inscriptions")
+ * @ORM\Entity
+ * @ORM\Table(name="inscriptions")
  **/
 class Inscription
 {
 
-    /** @Id @Column(type="integer") @GeneratedValue **/
+    /**
+     * @ORM\Id @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     **/
     protected $id;
 
-    /** @ManyToOne(targetEntity="Etudiant", inversedBy="inscriptions") **/
+    /** @ORM\ManyToOne(targetEntity="Etudiant", inversedBy="inscriptions") **/
     protected $etudiant;
 
-    /** @ManyToOne(targetEntity="Session", inversedBy="inscriptions") **/
+    /** @ORM\ManyToOne(targetEntity="Session", inversedBy="inscriptions") **/
     protected $session;
 
-    /** @Column(type="boolean") */
+    /** @ORM\Column(type="boolean") */
     protected $confirmed;
 
     /**
-     * @OneToMany(targetEntity="Note", mappedBy="inscription")
+     * @ORM\OneToMany(targetEntity="Note", mappedBy="inscription")
      * @var Note[]
      **/
     protected $notes = null;
     
     /**
-     * @OneToMany(targetEntity="StageEntreprise", mappedBy="inscription")
+     * @ORM\OneToMany(targetEntity="StageEntreprise", mappedBy="inscription")
      * @var StageEntreprise[]
      **/
     protected $stages = null;
     
-    /** @Column(type="date") **/
+    /** @ORM\Column(type="date") **/
     protected $inscriptionBegin;
     
-    /** @Column(type="date") **/
+    /** @ORM\Column(type="date") **/
     protected $inscriptionEnd;
 
 }

@@ -2,20 +2,31 @@
 
 namespace Models;
 
+use Doctrine\ORM\Mapping as ORM;
+
 require_once 'Personne.php';
 
 /**
- * @Entity
- * @Table(name="etudiants")
+ * @ORM\Entity
+ * @ORM\Table(name="etudiants")
  **/
 class Etudiant extends Personne
 {
     
     /**
-     * @OneToMany(targetEntity="Inscription", mappedBy="etudiant")
+     * @ORM\Column(type="string", unique=true)
+     **/
+    protected $emailViacesi;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Inscription", mappedBy="etudiant")
      * @var Inscription[]
      **/
     protected $inscriptions = null;
+    
+    public function setEmailViacesi($value) {
+        $this->emailViacesi = $value;
+    }
     
     /**
      * @param int year Optionnel
