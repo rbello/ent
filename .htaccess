@@ -1,2 +1,22 @@
+Order Allow,Deny
+Allow from all
+
 # Désactive le listing des répertoires
 Options -Indexes
+
+# Charset
+AddDefaultCharset UTF-8
+
+# Erreur 404
+ErrorDocument 404 error.html?e=404
+
+# Security
+<Files system/*>
+    Deny from all
+</Files>
+<Files models/*>
+    Deny from all
+</Files>
+<Files config/*>
+    Deny from all
+</Files>

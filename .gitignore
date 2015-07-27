@@ -9,6 +9,7 @@ php_errors.log
 composer.lock
 system/lib/*
 system/Models/*
+system/Proxies/*
 
 # Specific
 config/config.ent-rbello.c9.io.php
