@@ -5,29 +5,32 @@ SCRIPT="`dirname $SCRIPT`"
 
 case "$1" in
 
-    clean)
+    clean-all)
         rm -rf system/lib
         rm -rf system/Models
+        rm -rf system/Proxies
         rm -f composer.lock
         rm -f php_errors.log
         ;;
-
+        
+    clean-db)
+        php $SCRIPT/system/install/truncate-db.php
+        ;;
+        
     update)
         echo "Update dependencies..."
         composer update
-        echo "Update entities..."
-        php $SCRIPT/system/lib/doctrine/orm/bin/doctrine orm:generate-entities --update-entities system
         ;;
         
     install)
         echo "Update dependencies..."
         composer update
-        echo "Generate entities..."
-        php $SCRIPT/system/lib/doctrine/orm/bin/doctrine orm:generate-entities --regenerate-entities=true --verbose --generate-annotations=true -- system
+        #echo "Generate entities..."
+        #php $SCRIPT/system/lib/doctrine/orm/bin/doctrine orm:generate-entities --regenerate-entities=true --verbose --generate-annotations=true -- system
+        #echo "Fix entities..."
+        #php $SCRIPT/system/install/fixentities.php $SCRIPT/system/Models
         echo "Prepare SQL database..."
         php $SCRIPT/system/lib/doctrine/orm/bin/doctrine orm:schema-tool:create
-        echo "Install data..."
-        php $SCRIPT/system/install/installer.php
         ;;
         
     install-data)
@@ -41,6 +44,13 @@ case "$1" in
         ;;
         
     *)
-        echo "Usage: setup <install|install-data|update|mapinf|clean>"
+        echo "Usage: setup <option>"
+        echo "Options are:"
+        echo "   install            Installation du système."
+        echo "   install-data       Installer les données samples."
+        echo "   update             Mettre à jour les dépendances."
+        echo "   mapinf <entity>    Affiche les informations de mapping de l'entité."
+        echo "   clean-db           Nettoyer toutes les données de la base."
+        echo "   clean-all          Nettoyer tous les fichiers propres à l'installation."
         ;;
 esac
