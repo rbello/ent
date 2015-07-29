@@ -2,7 +2,7 @@
 
 echo "  Install Products, UE and Modules...";
 
-$fp = fopen(BASE . 'system/install/data/dump.sql', 'w');
+//$fp = fopen(BASE . 'system/install/data/dump.sql', 'w');
 
 $xml = load_xml(BASE . 'system/install/data/Modules-X.xml');
 

@@ -1,7 +1,7 @@
 <?php
 
 // Chargement de la configuration
-$config = include_once dirname(__FILE__) . '/config.php';
+$config = include_once __DIR__ . '/config.php';
 
 // Niveau d'erreur
 error_reporting($config['debug'] ? E_ALL : 0);

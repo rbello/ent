@@ -25,7 +25,7 @@ foreach (glob(BASE . '/system/install/data/Sessions*.xml') as $file) {
 
         $promo = load_xml($file);
 
-        echo " {$promo['year']}(";
+        echo " {$promo['year']}=";
         
         $s = 0;
         
@@ -45,6 +45,8 @@ foreach (glob(BASE . '/system/install/data/Sessions*.xml') as $file) {
                 echo "      Warning: session {$session['codeAnalytique']} cannot be attached to product '{$produit['name']}' ({$produit['code']})\n";
                 continue;
             }
+            
+            echo "(";
             
             // On a trouvé une session de plus
             $s++;

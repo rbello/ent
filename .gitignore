@@ -14,3 +14,7 @@ system/Proxies/*
 # Specific
 config/config.ent-rbello.c9.io.php
 system/install/data/*
+auth.json
+
+# Cache
+/system/cache/wsdl/*

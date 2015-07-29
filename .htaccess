@@ -20,3 +20,16 @@ ErrorDocument 404 error.html?e=404
 <Files config/*>
     Deny from all
 </Files>
+<Files api/*>
+    Deny from all
+</Files>
+
+
+RewriteEngine On
+RewriteBase /
+
+# WebServices
+RewriteRule ^api\/(.*)\.info$ /system/api.php?x--dn=info+$1 [L]
+RewriteRule ^api\/(.*)\.wsdl$ /system/api.php?x--dn=wsdl+$1 [L]
+RewriteRule ^api\/(.*)\.soap$ /system/api.php?x--dn=soap+$1 [L]
+RewriteRule ^api\/(.*)\/(.*)\.json$ /system/api.php?x--dn=rest+$1+json+$2 [L,QSA]

@@ -1,5 +1,5 @@
 <?php
 
-$auth0 = new \Auth0\SDK\Auth0($config['auth0']);
+//$auth0 = new \Auth0\SDK\Auth0($config['auth0']);
 
-$userInfo = $auth0->getUserInfo();
+//$userInfo = $auth0->getUserInfo();

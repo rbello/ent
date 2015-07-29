@@ -11,6 +11,8 @@ case "$1" in
         rm -rf system/Proxies
         rm -f composer.lock
         rm -f php_errors.log
+        rm -rf system/cache/wsdl
+        mkdir system/cache/wsdl
         ;;
         
     clean-db)
