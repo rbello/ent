@@ -5,8 +5,13 @@ if (php_sapi_name() != 'cli') {
     exit("Error: must be run in CLI\n");
 }
 
+error_reporting(E_ALL);
+
 // On utilisera les modèles générés
 //define('GENERATED_MODELS', true);
+
+// On n'insert pas toutes les données, juste un peu histoire de tester
+$test_limit_data = false;
 
 // Initialisation
 include dirname(__FILE__) . '/../init.php';
@@ -35,14 +40,17 @@ function load_xml($path) {
 $format = "d/m/Y";
 
 // 1 - On charge les produits, les UE et les modules
-include BASE . 'models/Produit.php';
+require_once BASE . 'models/Produit.php';
 include '.install-products.php';
 $repoProduit = $em->getRepository('\\Models\\Produit');
 
 // 2 - On charge les étudiants 
-include BASE . 'models/Etudiant.php';
+require_once BASE . 'models/Etudiant.php';
 include '.install-students.php';
 
-// 3 - On charge les établissements 
-include BASE . 'models/Etablissement.php';
-include '.install-etablissements.php';
+// 3 - On charge les établissements et les sessions
+require_once BASE . 'models/Etablissement.php';
+#include '.install-etablissements.php';
+
+// 4 - On charge les inscriptions
+include '.install-inscriptions.php';

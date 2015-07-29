@@ -2,11 +2,15 @@
 
 echo "  Install Etablissements and Sessions...\n";
 
+$RACINES = array();
+
 foreach (glob(BASE . '/system/install/data/Sessions*.xml') as $file) {
 
     $codeAnalytique = substr(substr($file, -6), 0, 2);
     
     echo "      Processing {$codeAnalytique} sessions...\n";
+    
+    $RACINES[] = $codeAnalytique;
     
     $centre = load_xml($file);
     
@@ -20,16 +24,16 @@ foreach (glob(BASE . '/system/install/data/Sessions*.xml') as $file) {
     foreach ($centre->promo as $promo) {
         foreach ($promo->session as $session) {
             
-            $produit = $session->produit[0];
-            $team    = $session->team[0];
-            $periode = $session->periode[0];
+            $produit  = $session->produit[0];
+            $team     = $session->team[0];          // TODO A gérer !!!
+            $periode  = $session->periode[0];
             
             // On cherche le produit de rattachement de cette session
             $find = $repoProduit->findOneBy(array('id' => $produit['code']));
             
             // On n'a pas trouvé le produit !!
             if (!$find) {
-                echo "      Error: session {$session['codeAnalytique']} cannot be attached to product '{$produit['name']}' ({$produit['code']})\n";
+                echo "      Warning: session {$session['codeAnalytique']} cannot be attached to product '{$produit['name']}' ({$produit['code']})\n";
                 continue;
             }
             
@@ -46,9 +50,12 @@ foreach (glob(BASE . '/system/install/data/Sessions*.xml') as $file) {
             
             $em->persist($submodel);
             
+            $em->flush();
 
         }
         $em->flush();
     }
     
 }
+
+echo "      OK!\n";

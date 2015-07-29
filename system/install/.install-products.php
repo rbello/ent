@@ -2,6 +2,8 @@
 
 echo "  Install Products, UE and Modules...";
 
+$fp = fopen(BASE . 'system/install/data/dump.sql', 'w');
+
 $xml = load_xml(BASE . 'system/install/data/Modules-X.xml');
 
 foreach ($xml->produit as $produit) {
@@ -14,6 +16,8 @@ foreach ($xml->produit as $produit) {
     
     $em->persist($model);
     $em->flush();
+    
+    $u = 0;
     
     foreach ($produit->ue as $ue) {
         
@@ -28,7 +32,9 @@ foreach ($xml->produit as $produit) {
         
         $em->flush();
         
-        /*foreach ($ue->module as $module) {
+        /*$m = 0;
+        
+        foreach ($ue->module as $module) {
             
             $nmodel = new \Models\Module();
             $nmodel->setName($module['name']);
@@ -36,9 +42,14 @@ foreach ($xml->produit as $produit) {
             
             $em->persist($nmodel);
             
+            // Limit
+            if ($test_limit_data && $m++ > 4) break;
+            
         }
         
         $em->flush();*/
+        
+        if ($test_limit_data && $u++ > 4) break;
         
     }
     

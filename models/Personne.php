@@ -36,7 +36,7 @@ class Personne
     protected $firstName;
     
     /**
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string", unique=false, nullable=true)
      **/
     protected $email;
 
@@ -91,11 +91,11 @@ class Personne
         $this->lastName = $value;
     }
     
-    public function setBirthDay($value) {
+    public function setBirthDay(\DateTime $value = null) {
         $this->birthday = $value;
     }
     
-    public function setBirthPlace(\DateTime $value = null) {
+    public function setBirthPlace($value) {
         $this->birthplace = $value;
     }
     

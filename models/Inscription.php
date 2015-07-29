@@ -44,4 +44,24 @@ class Inscription
     /** @ORM\Column(type="date") **/
     protected $inscriptionEnd;
 
+    public function setEtudiant(Etudiant $value) {
+        $this->etudiant = $value;
+    }
+
+    public function setSession(Session $value) {
+        $this->session = $value;
+    }
+    
+    public function setConfirmed($value) {
+        $this->confirmed = (bool) $value;
+    }
+    
+    public function setInscriptionBegin(\DateTime $value) {
+        $this->inscriptionBegin = $value;
+    }
+    
+    public function setInscriptionEnd(\DateTime $value) {
+        $this->inscriptionEnd = $value;
+    }
+
 }
