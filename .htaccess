@@ -4,32 +4,43 @@ Allow from all
 # Désactive le listing des répertoires
 Options -Indexes
 
+# On active le suivi des liens
+Options FollowSymLinks
+
 # Charset
 AddDefaultCharset UTF-8
 
 # Erreur 404
-ErrorDocument 404 error.html?e=404
+#ErrorDocument 404 error.html?e=404
 
 # Security
-<Files system/*>
-    Deny from all
-</Files>
-<Files models/*>
-    Deny from all
-</Files>
-<Files config/*>
-    Deny from all
-</Files>
-<Files api/*>
-    Deny from all
-</Files>
+#<Files system/*>
+#    Deny from all
+#</Files>
+#<Files models/*>
+#    Deny from all
+#</Files>
+#<Files config/*>
+#    Deny from all
+#</Files>
+#<Files api/*>
+#    Deny from all
+#</Files>
 
-
+# Enable rewrite engine
 RewriteEngine On
 RewriteBase /
+#RewriteLogLevel 3
+#RewriteLog "/home/ubuntu/workspace/rewrite.log"
+#LogLevel alert rewrite:trace6
+#LogLevel alert rewrite:trace3
 
-# WebServices
+# API as a WebService
 RewriteRule ^api\/(.*)\.info$ /system/api.php?x--dn=info+$1 [L]
 RewriteRule ^api\/(.*)\.wsdl$ /system/api.php?x--dn=wsdl+$1 [L]
 RewriteRule ^api\/(.*)\.soap$ /system/api.php?x--dn=soap+$1 [L]
 RewriteRule ^api\/(.*)\/(.*)\.json$ /system/api.php?x--dn=rest+$1+json+$2 [L,QSA]
+
+# Web client
+RewriteCond %{REQUEST_URI} !(www) [NC]
+RewriteRule ^([^?]*)$ /www/$1 [NC,L,QSA]

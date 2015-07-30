@@ -17,63 +17,75 @@ class Personne
      * 
      * @ORM\Id
      * @ORM\Column(type="integer")
+     * @var int
      **/
-    protected $id;
+    public $id;
     
     /**
      * @ORM\Column(type="string", columnDefinition="ENUM('M', 'Mme', 'Mlle')")
+     * @var string
      **/
-    protected $civilite;
+    public $civilite;
     
     /**
      * @ORM\Column(type="string")
+     * @var string
      **/
-    protected $lastName;
+    public $lastName;
     
     /**
      * @ORM\Column(type="string")
+     * @var string
      **/
-    protected $firstName;
+    public $firstName;
     
     /**
      * @ORM\Column(type="string", unique=false, nullable=true)
+     * @var string
      **/
-    protected $email;
+    public $email;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @var string
      **/
-    protected $birthDay;
+    public $birthDay;
     
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @var string
      **/
-    protected $birthPlace;
+    public $birthPlace;
     
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @var string
      **/
-    protected $nationality;
+    public $nationality;
     
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @var string
      **/
-    protected $phoneNumber;
+    public $phoneNumber;
     
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @var string
      **/
-    protected $cellNumber;
+    public $cellNumber;
     
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @var string
      **/
-    protected $addressCity;
+    public $addressCity;
     
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
+     * @var string
      **/
-    protected $addressPostalCode;
+    public $addressPostalCode;
     
     public function setId($value) {
         $this->id = $value;

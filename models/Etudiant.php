@@ -5,6 +5,7 @@ namespace Models;
 use Doctrine\ORM\Mapping as ORM;
 
 require_once 'Personne.php';
+require_once 'Inscription.php';
 
 /**
  * @ORM\Entity
@@ -15,8 +16,9 @@ class Etudiant extends Personne
     
     /**
      * @ORM\Column(type="string", unique=true)
+     * @var string
      **/
-    protected $emailViacesi;
+    public $emailViacesi;
     
     /**
      * @ORM\OneToMany(targetEntity="Inscription", mappedBy="etudiant")

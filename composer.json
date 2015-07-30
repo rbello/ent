@@ -15,8 +15,6 @@
         "wingu/reflection": "~1.0",
         "php2wsdl/php2wsdl": "*",
         
-        "twbs/bootstrap": "~3.0"
-        
     },
     "scripts": {
         "post-install-cmd": "installer::postInstall"

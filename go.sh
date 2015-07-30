@@ -13,6 +13,8 @@ case "$1" in
         rm -f php_errors.log
         rm -rf system/cache/wsdl
         mkdir system/cache/wsdl
+        rm -rf system/cache/sass
+        mkdir system/cache/sass
         ;;
         
     clean-db)
@@ -25,6 +27,9 @@ case "$1" in
         ;;
         
     install)
+        echo "Install required applications...";
+        gem install sass
+        gem install compass
         echo "Update dependencies..."
         composer update
         #echo "Generate entities..."
@@ -45,12 +50,17 @@ case "$1" in
         php $SCRIPT/system/lib/doctrine/orm/bin/doctrine orm:mapping:describe $2
         ;;
         
+    css)
+        compass watch --trace
+        ;;
+        
     *)
         echo "Usage: setup <option>"
         echo "Options are:"
         echo "   install            Installation du système."
         echo "   install-data       Installer les données samples."
         echo "   update             Mettre à jour les dépendances."
+        echo "   css                Générer les fichiers CSS à partir des fichiers SASS."
         echo "   mapinf <entity>    Affiche les informations de mapping de l'entité."
         echo "   clean-db           Nettoyer toutes les données de la base."
         echo "   clean-all          Nettoyer tous les fichiers propres à l'installation."

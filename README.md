@@ -10,8 +10,13 @@
 
 Run the following to setup:
 ```
-chmod +x setup.sh
-./setup.sh install
+chmod +x go.sh
+./go.sh install
+```
+
+Then you can setup data using:
+```
+./go.sh install-data
 ```
 
 Clone: https://github.com/rbello/ent.git

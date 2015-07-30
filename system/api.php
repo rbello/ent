@@ -50,7 +50,6 @@ function output_json($value) {
 if (!in_array($api, $list)) {
     header('HTTP/1.0 404 Not Found');
     echo "404 Api Not Found ({$api})";
-    print_r($_REQUEST);
     exit();
 }
 

@@ -18,3 +18,4 @@ auth.json
 
 # Cache
 /system/cache/wsdl/*
+/system/cache/sass/*
