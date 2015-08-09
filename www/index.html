@@ -1,17 +1,23 @@
-<!DOCTYPE html>
+<?php
+
+include (__DIR__ . '/../api/GestionCompteUtilisateur.php');
+
+GestionCompteUtilisateur::sendCorsHeaders();
+
+?><!DOCTYPE html>
 <html lang="en" ng-app="EntClientApp">
 <head>
     <title>title</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Polymer -->
+    <script src="res/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="www/res/google-map/google-map.html">
     <!-- Angular Material -->
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <!-- Polymer -->
-    <script src="res/webcomponentsjs/webcomponents-lite.min.js"></script>
-    <link rel="import" href="res/google-map/google-map.html">
     <!-- Custom -->
     <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -22,15 +28,15 @@
   <div class="md-toolbar-tools">
     <h3><span>Gestion des stages</span></h3>
     <span flex=""></span>
-    <md-button ng-click="toggleRight()" class="md-primary" hide-gt-md="">
+    <md-button ng-click="toggleRight()" class="md-primary" hide-gt-md="" aria-label="Toggle">
         <md-icon md-font-icon="fa-bars" style="color: white !important" class="fa s32 md-primary md-hue-2"></md-icon>
     </md-button>
     <!--<md-button class="md-fab md-primary" aria-label="Profile">
       <md-icon md-font-icon="fa-lock" class="fa s32 md-primary md-hue-2"></md-icon>
     </md-button>-->
-    <!--<div class="lock-size" layout="row" layout-align="center center">
-      <md-fab-speed-dial md-open="demo.isOpen" md-direction="{{demo.selectedDirection}}"
-                         ng-class="demo.selectedMode">
+    <!--{{demo.selectedMode}} {{demo.selectedDirection}} {{demo.isOpen}}
+    <div class="lock-size" layout="row" layout-align="center center">
+      <md-fab-speed-dial md-open="demo.isOpen" md-direction="{{demo.selectedDirection}}" ng-class="demo.selectedMode">
         <md-fab-trigger>
           <md-button aria-label="menu" class="md-fab md-warn">
             <md-icon md-font-icon="fa-lock" class="fa s32 md-primary md-hue-2"></md-icon>
@@ -101,16 +107,20 @@
   </md-content>
   
   <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="sidenav" md-is-locked-open="$mdMedia('gt-md')">
-    <md-toolbar class="md-theme-light">
+    <!--<md-toolbar class="md-theme-light">
       <h1 class="md-toolbar-tools">Sidenav Right</h1>
-    </md-toolbar>
+    </md-toolbar>-->
     <md-content ng-controller="SideNavCtrl" layout-padding>
-      <form>
+      <!--<form>
         <md-input-container>
           <label for="testInput">Test input</label>
           <input type="text" id="testInput" ng-model="data" md-sidenav-focus>
         </md-input-container>
-      </form>
+      </form>-->
+      <section layout="row" layout-sm="column" layout-align="center center">
+        <md-button class="md-raised" ng-click="auth.login()">Login</md-button>
+        <md-button class="md-raised md-primary">Primary</md-button>
+      </section>
     </md-content>
   </md-sidenav>
 
@@ -123,6 +133,11 @@
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
 <!--<script src="//ng-table.com/dist/ng-table.min.js"></script>-->
+<!-- Auth0 -->
+<script src="//cdn.auth0.com/js/lock-7.5.min.js"></script>
+<script src="//cdn.rawgit.com/auth0/angular-storage/master/dist/angular-storage.js"></script>
+<script src="//cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
+<script src="//cdn.auth0.com/w2/auth0-angular-4.js"></script>
 <!-- Custom -->
 <script src="js/ctrl.js"></script>
 

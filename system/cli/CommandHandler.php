@@ -24,8 +24,8 @@ require_once 'Command.php';
  * 		Implements 2 methods: getCurrentUserID() and checkPermission()
  * 		Create a new instance, and execute with exec($GLOBALS['argv'])
  * 
- * @author ted@evolya.fr
- * @link http://blog.evolya.fr/labs/phponcli/
+ * @author remi.bello.pro@gmail.com
+ * @link https://github.com/rbello
  */
 abstract class CommandHandler {
 	

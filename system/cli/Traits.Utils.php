@@ -31,7 +31,7 @@ trait Utils {
     	}
    		foreach ($vars as $k => $v) {
    			if (is_object($v)) {
-   				if (in_array('__toString', get_class_methods($o)))
+   				if (in_array('__toString', get_class_methods($v)))
    					$v = $v->__toString();
    				else $v = self::outputObject($v, $n + 1);
    			}

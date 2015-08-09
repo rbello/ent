@@ -13,7 +13,9 @@
 
         "doctrine/orm": "*",
         "wingu/reflection": "~1.0",
-        "php2wsdl/php2wsdl": "*"
+        "php2wsdl/php2wsdl": "*",
+        
+        "firebase/php-jwt": "~2.2"
         
     },
     "scripts": {

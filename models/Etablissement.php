@@ -38,4 +38,8 @@ class Etablissement
         $this->racine = $value;
     }
     
+    public function __toString() {
+        return $this->racine;
+    }
+    
 }

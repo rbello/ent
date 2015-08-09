@@ -1,7 +1,5 @@
 <?php
 
-require_once BASE . 'models/Produit.php';
-
 /**
  * @soap
  */

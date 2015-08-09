@@ -34,7 +34,7 @@ Using API
 
 Command line:
 ```
-./go.sh cli session get 848037
+./go.sh cli session get-id 848037
 ```
 
 REST api:

@@ -10,6 +10,9 @@ Options FollowSymLinks
 # Charset
 AddDefaultCharset UTF-8
 
+# Handle HTML files as PHP
+AddHandler application/x-httpd-php .html .htm
+
 # Erreur 404
 #ErrorDocument 404 error.html?e=404
 

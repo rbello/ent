@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * @param Date begin
  * @param Date end
@@ -27,12 +29,23 @@ function getSessionPeriodes(begin, end) {
 }
 
 (function() {
-    'use strict';
+    
     console.log("Go");
 
-    var app = angular.module('EntClientApp', ['ngMaterial'/*, 'ngTable'*/]);
+    var app = angular.module('EntClientApp', ['ngMaterial', 'angular-storage', 'auth0', 'angular-jwt']);
     
-    app.controller('AppCtrl', function($scope, $timeout, $mdSidenav, $mdUtil, $log) {
+    app.config(function (authProvider) {
+        authProvider.init({
+            domain:   'ent.eu.auth0.com',
+            clientID: 'BAZxb4JU6TN99UZ1bcJVepvmlMiCIxvR'
+        });
+    })
+    .run(function(auth) {
+        // This hooks al auth events to check everything as soon as the app starts
+        auth.hookEvents();
+    });
+    
+    app.controller('AppCtrl', function($scope, $timeout, $mdSidenav, $mdUtil, $log, auth, store, $location) {
         
         console.log("Init AppCtrl");
         
@@ -48,15 +61,29 @@ function getSessionPeriodes(begin, end) {
               },300);
           return debounceFn;
         }
+        
+        $scope.auth = {
+          login: function () {
+            auth.signin({}, function (profile, token) {
+              // Success callback
+              store.set('profile', profile);
+              store.set('token', token);
+              $location.path('/');
+            }, function () {
+              // Error callback
+            });
+          }
+        }
+        
     });
     
     app.controller('MenuCtrl', function($scope) {
         console.log("Init MenuCtrl");
-        $scope.demo = {
+        /*$scope.demo = {
           selectedMode: 'md-scale',
           isOpen: false,
           selectedDirection: 'down'
-        };
+        };*/
     });
     
     app.controller('SideNavCtrl', function ($scope, $timeout, $mdSidenav, $log) {
@@ -145,11 +172,13 @@ function getSessionPeriodes(begin, end) {
         return sessionStages.axePeda;
       },
       getAxePeriodes: function(axe) {
+        if (axe.tmp) return axe.tmp;
         var r = [];
         for (var periode in axe.periodes) {
           var name = axe.periodes[periode];
           r.push({title: name});
         }
+        axe.tmp = r;
         return r;
       }
     };

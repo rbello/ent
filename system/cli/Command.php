@@ -165,7 +165,7 @@ class SubCommand extends MethodCommand {
             $max++;
             if (!$p->isDefaultValueAvailable()) $required = $max;
         }
-        // Check
+        // Check arguments count
         $c = sizeof($params);
         if ($c < $required) {
             $hdr->output("Missing argument ".($c+1)." (".$ps[$c]->getName().")");
@@ -177,9 +177,24 @@ class SubCommand extends MethodCommand {
             $hdr->output("Usage: " . CompositeCommand::getUsage("{$cmd} {$sub}", $this->method));
             return false;
         }
-        return call_user_func_array(
-			array($this->instance, $this->methodName),
-			$params
-		);
+        // Check arguments types
+        
+        
+        // TODO checkPermission
+        
+        return cap(
+            // Code to try
+            function () use ($params) {
+                return call_user_func_array(
+        			array($this->instance, $this->methodName),
+        			$params
+        		);
+            },
+            // Catch exceptions and error reporting
+            function (\Exception $ex) use ($hdr) {
+                $hdr->output(get_class($ex) . ': ' . $ex->getMessage());
+                return false;
+            });
+
     }
 }

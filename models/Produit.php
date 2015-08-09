@@ -59,5 +59,9 @@ class Produit
     public function setDate(\DateTime $value) {
         $this->date = $value;
     }
+    
+    public function __toString() {
+        return "{$this->name} ({$this->id})";
+    }
 
 }

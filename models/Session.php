@@ -84,15 +84,15 @@ class Session
 
     /**
      * @ORM\ManyToOne(targetEntity="Produit", inversedBy="sessions")
-     * @var Produit
+     * @var Models\Produit
      **/
-    protected $product;
+    public $product;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Etablissement", inversedBy="sessions")
-     * @var Etablissement
+     * @ORM\ManyToOne(targetEntity="Etablissement", inversedBy="etablissements")
+     * @var Models\Etablissement
      **/
-    protected $etablissement;
+    public $etablissement;
 
     public function setId($value) {
         $this->id = $value;
