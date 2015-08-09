@@ -29,5 +29,16 @@ Finally, you can access system command line interface using:
 ./go.sh cli help
 ```
 
+```
+// Local CLI
+./go.sh cli session get 848037
+
+// REST API
+http://your_host/api/Session-848037.json
+
+// SOAP API
+http://your_host/api/GestionSessions.soap#getSessionById
+```
+
 Clone: https://github.com/rbello/ent.git
 Demo: https://ent-rbello.c9.io/

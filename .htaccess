@@ -35,12 +35,14 @@ RewriteBase /
 #LogLevel alert rewrite:trace6
 #LogLevel alert rewrite:trace3
 
+# Web client
+RewriteCond %{REQUEST_URI} !(www) [NC]
+RewriteCond %{REQUEST_URI} !(api) [NC]
+RewriteRule ^([^?]*)$ /www/$1 [NC,L,QSA]
+
 # API as a WebService
 RewriteRule ^api\/(.*)\.info$ /system/api.php?x--dn=info+$1 [L]
 RewriteRule ^api\/(.*)\.wsdl$ /system/api.php?x--dn=wsdl+$1 [L]
 RewriteRule ^api\/(.*)\.soap$ /system/api.php?x--dn=soap+$1 [L]
-RewriteRule ^api\/(.*)\/(.*)\.json$ /system/api.php?x--dn=rest+$1+json+$2 [L,QSA]
+RewriteRule ^api\/(.*)\/(.*)\.json$ system/api.php?x--dn=rest+$1+json+$2 [L,QSA]
 
-# Web client
-RewriteCond %{REQUEST_URI} !(www) [NC]
-RewriteRule ^([^?]*)$ /www/$1 [NC,L,QSA]
