@@ -6,7 +6,7 @@ include_once __DIR__ . '/init.php';
 // Liste des APIs disponibles
 //$apis = array();
 //foreach (glob(BASE . 'api/*') as $k => &$v) { $x = str_replace('.php', '', basename($v)); $apis[strtolower($x)] = $x; }
-foreach ($list = glob(BASE . 'api/*') as $k => &$v) $v = str_replace('.php', '', basename($v));
+foreach ($list = glob(BASE . 'api/*.php') as $k => &$v) $v = str_replace('.php', '', basename($v));
 
 // 
 @list($dn, $api, $type, $method) = explode(' ', $_REQUEST['x--dn'], 4);
@@ -41,7 +41,6 @@ function get_type($var) {
 }
 
 function output_json($value) {
-    
     $r = array('rsp' => 200, 'typ' => get_type($value), 'val' => $value);
     return json_encode($r);
 }
@@ -103,6 +102,7 @@ else if ($dn == 'soap') {
 }
 
 else if ($dn == 'info') {
+    header("Content-type: text/html");
     echo "<html><head><title>{$api}</title></head><body><h1>{$api}</h1><ul>";
     echo "<li><a href='/api/{$api}.wsdl'>WSDL</a></li>";
     echo "<li><a href='/api/{$api}.soap'>SOAP</a></li>";

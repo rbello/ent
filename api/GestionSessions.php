@@ -1,7 +1,5 @@
 <?php
 
-require_once BASE . 'models/Session.php';
-
 /**
  * @soap
  */
@@ -10,7 +8,7 @@ class GestionSessions {
     /**
      * @soap
      * @cli
-     * @return Session[]
+     * @return Models\Session[]
      */
     public function getSessions() {
         return array();
@@ -20,7 +18,7 @@ class GestionSessions {
      * @soap
      * @cli
      * @param int $id
-     * @return Session|null
+     * @return Models\Session
      */
     public function getSessionById($id) {
         $repo = $GLOBALS['em']->getRepository('\\Models\\Session');
@@ -34,17 +32,6 @@ class GestionSessions {
      */
     public function getSession($id) {
         return $this->getSessionById($id);
-    }
-    
-    /**
-     * @soap
-     * @cli
-     * @return int
-     * @usage test <X> [Y]
-     * @usage test <name>
-     */
-    public function test() {
-        return 27;
     }
     
 }

@@ -34,10 +34,10 @@ Finally, you can access system command line interface using:
 ./go.sh cli session get 848037
 
 // REST API
-http://your_host/api/Session-848037.json
+http://your_host/api/GestionSessions/getSessionById.json?id=848037
 
 // SOAP API
-http://your_host/api/GestionSessions.soap#getSessionById
+http://your_host/api/GestionSessions.wsdl
 ```
 
 Clone: https://github.com/rbello/ent.git

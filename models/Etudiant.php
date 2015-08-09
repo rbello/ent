@@ -4,9 +4,6 @@ namespace Models;
 
 use Doctrine\ORM\Mapping as ORM;
 
-require_once 'Personne.php';
-require_once 'Inscription.php';
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="etudiants")

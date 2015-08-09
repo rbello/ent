@@ -4,9 +4,6 @@ namespace Models;
 
 use Doctrine\ORM\Mapping as ORM;
 
-require_once 'UE.php';
-require_once 'Session.php';
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="produits")

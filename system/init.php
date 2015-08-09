@@ -7,6 +7,7 @@ $config = include_once __DIR__ . '/config.php';
 error_reporting($config['debug'] ? E_ALL : 0);
 
 // Librairies tierses
+require_once BASE . 'system/entities.php';
 require_once BASE . 'system/lib/autoload.php';
 
 // Authentication
