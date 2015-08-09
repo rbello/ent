@@ -14,9 +14,19 @@ chmod +x go.sh
 ./go.sh install
 ```
 
-Then you can setup data using:
+Copy the configuration file, and fill in your plateforme settings:
+```
+cp config/config.default.php config/config.<your host name>.php
+```
+
+Then you can populate data using:
 ```
 ./go.sh install-data
+```
+
+Finally, you can access system command line interface using:
+```
+./go.sh cli help
 ```
 
 Clone: https://github.com/rbello/ent.git

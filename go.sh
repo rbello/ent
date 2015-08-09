@@ -30,7 +30,10 @@ case "$1" in
         echo "Install required applications...";
         gem install sass
         gem install compass
-        echo "Update dependencies..."
+        echo "Update client dependencies...";
+        #bower install ng-table
+        bower install --save GoogleWebComponents/google-map
+        echo "Update server dependencies..."
         composer update
         #echo "Generate entities..."
         #php $SCRIPT/system/lib/doctrine/orm/bin/doctrine orm:generate-entities --regenerate-entities=true --verbose --generate-annotations=true -- system
@@ -50,6 +53,11 @@ case "$1" in
         php $SCRIPT/system/lib/doctrine/orm/bin/doctrine orm:mapping:describe $2
         ;;
         
+    cli)
+        chmod +x $SCRIPT/system/cli.php
+        $SCRIPT/system/cli.php $2 $3 $4 $5 $6 $7 $8 $9
+        ;;
+        
     css)
         compass watch --trace
         ;;
@@ -64,5 +72,6 @@ case "$1" in
         echo "   mapinf <entity>    Affiche les informations de mapping de l'entité."
         echo "   clean-db           Nettoyer toutes les données de la base."
         echo "   clean-all          Nettoyer tous les fichiers propres à l'installation."
+        echo "   cli                Executer une commande sur le système via l'interface CLI."
         ;;
 esac

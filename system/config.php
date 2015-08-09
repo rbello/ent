@@ -1,7 +1,7 @@
 <?php
 
 // Emplacement du système
-define('BASE', realpath(dirname(__FILE__) . '/../') . '/');
+define('BASE', realpath(__DIR__ . '/../') . '/');
 
 // Configuration par défaut
 $config = include BASE . 'config/config.default.php';

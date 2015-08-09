@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="StarterApp" class="StarterApp">
+<html lang="en" ng-app="EntClientApp">
 <head>
     <title>title</title>
     <meta charset="utf-8" />
@@ -9,38 +9,26 @@
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Polymer -->
+    <script src="res/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="res/google-map/google-map.html">
     <!-- Custom -->
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body ng-controller="AppCtrl" layout="column" layout-fill>
 
+<div id="MenuBar" ng-controller="MenuCtrl">
 <md-toolbar md-scroll-shrink>
   <div class="md-toolbar-tools">
     <h3><span>Gestion des stages</span></h3>
     <span flex=""></span>
+    <md-button ng-click="toggleRight()" class="md-primary" hide-gt-md="">
+        <md-icon md-font-icon="fa-bars" style="color: white !important" class="fa s32 md-primary md-hue-2"></md-icon>
+    </md-button>
     <!--<md-button class="md-fab md-primary" aria-label="Profile">
       <md-icon md-font-icon="fa-lock" class="fa s32 md-primary md-hue-2"></md-icon>
     </md-button>-->
-    <!-- TODO Insert menu here -->
-  </div>
-</md-toolbar>
-
-<md-card>
-  <md-card-content>
-    <h1>Stages</h1>
-    <?php var_dump($_REQUEST);?>
-  </md-card-content>
-</md-card>
-
-
-
-<div>
-  <md-content class="md-padding" layout="column">
-    <p>
-      You may supply a direction of <code>left</code>, <code>up</code>, <code>down</code>, or
-      <code>right</code> through the <code>md-direction</code> attribute.
-    </p>
-    <div class="lock-size" layout="row" layout-align="center center">
+    <!--<div class="lock-size" layout="row" layout-align="center center">
       <md-fab-speed-dial md-open="demo.isOpen" md-direction="{{demo.selectedDirection}}"
                          ng-class="demo.selectedMode">
         <md-fab-trigger>
@@ -60,40 +48,73 @@
           </md-button>
         </md-fab-actions>
       </md-fab-speed-dial>
-    </div>
-    <div layout="row" layout-align="space-around">
-      <div layout="column">
-        <b>Direction</b>
-        <md-radio-group ng-model="demo.selectedDirection">
-          <md-radio-button ng-repeat="direction in demo.availableDirections"
-                           ng-value="direction" class="text-capitalize">
-            {{direction}}
-          </md-radio-button>
-        </md-radio-group>
-      </div>
-      <div layout="column">
-        <b>Open/Closed</b>
-        <md-radio-group ng-model="demo.isOpen">
-          <md-radio-button ng-value="true">Open</md-radio-button>
-          <md-radio-button ng-value="false">Closed</md-radio-button>
-        </md-radio-group>
-      </div>
-      <div layout="column">
-        <b>Animation Modes</b>
-        <md-radio-group ng-model="demo.selectedMode">
-          <md-radio-button ng-repeat="mode in demo.availableModes" ng-value="mode">
-            {{mode}}
-          </md-radio-button>
-        </md-radio-group>
-      </div>
-    </div>
-    <p class="note">
-      Note that you can also hover over the directive's area or tab through each button to open and
-      activate the speed dial menu.
-    </p>
-  </md-content>
+    </div>-->
+  </div>
+</md-toolbar>
 </div>
 
+<section layout="row" flex="">
+    
+  <md-content flex="" layout-padding="" ng-controller="VisiteTuteurView">
+  
+    <md-card>
+      <md-card-content>
+        <p>{{sessionStages.title}}</p>
+        
+        <md-subheader class="md-primary">Périodes de visite tuteur</md-subheader>
+        <div class="simple-timeline seg24">
+          <div ng-repeat="month in sessionStages.getStagePeriodes()" title="{{month.title}}" class="{{month.classes}}"></div>
+        </div>
+        
+        <md-subheader class="md-primary">Déroulé pédagogique</md-subheader>
+        <div ng-repeat="axe in sessionStages.getAxesPeda()" class="simple-timeline seg24" class="{{axe.color}}">
+          <p>{{axe.name}}</p>
+          <div ng-repeat="month in sessionStages.getAxePeriodes(axe)" title="{{month.title}}" class="{{month.classes}}"></div>
+        </div>
+        
+        
+        <!--<google-map latitude="{{sessionStages.lat}}" longitude="{{sessionStages.lng}}">
+          <google-map-marker latitude="37.779" longitude="-122.3892" draggable="true" title="Go Giants!"></google-map-marker>
+        </google-map>-->
+        <p style="clear:both">X</p>
+        <!--<table ng-table>
+          <thead>
+            <tr>
+              <th>Doo</th>
+              <th>Tha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>10.0</td>
+              <td>Rando</td>
+            </tr>
+            <tr>
+              <td>7.5</td>
+              <td>Akabi</td>
+            </tr>
+          </tbody>
+        </table>-->
+      </md-card-content>
+    </md-card>
+      
+  </md-content>
+  
+  <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="sidenav" md-is-locked-open="$mdMedia('gt-md')">
+    <md-toolbar class="md-theme-light">
+      <h1 class="md-toolbar-tools">Sidenav Right</h1>
+    </md-toolbar>
+    <md-content ng-controller="SideNavCtrl" layout-padding>
+      <form>
+        <md-input-container>
+          <label for="testInput">Test input</label>
+          <input type="text" id="testInput" ng-model="data" md-sidenav-focus>
+        </md-input-container>
+      </form>
+    </md-content>
+  </md-sidenav>
+
+</section>
 
 
 <!-- Angular Material Dependencies -->
@@ -101,6 +122,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
+<!--<script src="//ng-table.com/dist/ng-table.min.js"></script>-->
 <!-- Custom -->
 <script src="js/ctrl.js"></script>
 

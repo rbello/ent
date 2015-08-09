@@ -13,7 +13,7 @@
 
         "doctrine/orm": "*",
         "wingu/reflection": "~1.0",
-        "php2wsdl/php2wsdl": "*",
+        "php2wsdl/php2wsdl": "*"
         
     },
     "scripts": {

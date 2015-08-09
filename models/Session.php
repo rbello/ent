@@ -4,6 +4,8 @@ namespace Models;
 
 use Doctrine\ORM\Mapping as ORM;
 
+require_once 'Etablissement.php';
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="sessions")
@@ -17,14 +19,14 @@ class Session
      * @ORM\Id
      * @ORM\Column(type="integer")
      **/
-    protected $id;
+    public $id;
     
     /**
      * Nom courant pour cette session.
      * 
      * @ORM\Column(type="string")
      **/
-    protected $name;
+    public $name;
     
     /**
      * Code analytique de la session.
@@ -33,7 +35,7 @@ class Session
      * 
      * @ORM\Column(type="string", length=10, unique=false, nullable=true)
      **/
-    protected $codeAnalytique;
+    public $codeAnalytique;
     
     /**
      * Codification simple pour déterminer le type de session Exia.
@@ -52,35 +54,35 @@ class Session
      * 
      * @ORM\Column(type="string", columnDefinition="ENUM('A1', 'A2', 'A1+A2', 'A3', 'A3+4L', 'A3+A4R', 'A3L', 'A3R', 'A4', 'A4L', 'A4R', 'A5')") 
      */
-    protected $sessionExiaType;
+    public $sessionExiaType;
     
     /**
      * Date de début de la session.
      * 
      * @ORM\Column(type="date")
      **/
-    protected $sessionBegin;
+    public $sessionBegin;
     
     /**
      * Date de fin de la session.
      * 
      * @ORM\Column(type="date")
      **/
-    protected $sessionEnd;
+    public $sessionEnd;
     
     /**
      * Nombre total d'heures, en face-à-face pédagogique ou autre.
      * 
      * @ORM\Column(type="float")
      **/
-    protected $durationHours;
+    public $durationHours;
     
     /**
      * L'année de rentrée correspondante, et non l'année de promotion.
      * 
      * @ORM\Column(type="integer", length=4)
      **/
-    protected $year;
+    public $year;
 
     /**
      * @ORM\ManyToOne(targetEntity="Produit", inversedBy="sessions")

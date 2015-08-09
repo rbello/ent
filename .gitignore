@@ -10,6 +10,7 @@ composer.lock
 system/lib/*
 system/Models/*
 system/Proxies/*
+www/res/*
 
 # Specific
 config/config.ent-rbello.c9.io.php
