@@ -16,13 +16,13 @@ class Etablissement
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      **/
-    protected $id;
+    public $id;
     
     /** @ORM\Column(type="string") **/
-    protected $name;
+    public $name;
     
     /** @ORM\Column(type="string", length=2, unique=true) **/
-    protected $racine;
+    public $racine;
     
     /**
      * @ORM\OneToMany(targetEntity="Session", mappedBy="etablissement")

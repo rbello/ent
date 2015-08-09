@@ -1,6 +1,6 @@
 <?php
 
-echo "  Install Inscriptions and Stages...";
+echo "  Install Etablissements, Sessions and Inscriptions...";
 
 // On parcours les racines des centres analytiques
 foreach (glob(BASE . '/system/install/data/Sessions*.xml') as $file) {

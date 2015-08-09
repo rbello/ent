@@ -5,19 +5,37 @@ namespace PHPonCLI;
 trait Utils {
     
     public static function outputObject($o, $n = 1) {
+    	$wb = "  ";
+    	if (is_array($o)) {
+    		if ($n > 1) return '[...]';
+    		$str = "[\n";
+    		$i = 0;
+    		foreach ($o as $k => $v) {
+    			if (is_array($v) || is_object($v)) $v = self::outputObject($v, $n + 1);
+    			$str .= str_repeat($wb, $n) . /*str_pad("$k", 10, ' ') . ' = ' . */ $v . PHP_EOL;
+    			if (++$i >= 100) {
+    				$str .= str_repeat($wb, $n) . '...' . PHP_EOL;
+    				break;
+    			}
+    		}
+    		return $str . ']';
+    	}
     	if ($o instanceof \DateTime) return $o->format('Y-m-d H:i:s');
     	if ($o instanceof \Exception) return get_class($o) . ' - ' . $o->getMessage();
-    	$str = get_class($o) . PHP_EOL;
+    	$str = get_class($o);
     	$vars = get_object_vars($o);
     	$c = 0;
-    	foreach ($vars as $k => $v) $c = max($c, strlen("$k"));
+    	foreach ($vars as $k => $v) {
+    		if (is_array($v) || is_object($v)) continue;
+    		$c = max($c, strlen("$k"));
+    	}
    		foreach ($vars as $k => $v) {
    			if (is_object($v)) {
    				if (in_array('__toString', get_class_methods($o)))
    					$v = $v->__toString();
    				else $v = self::outputObject($v, $n + 1);
    			}
-   			$str .= str_repeat("\t", $n) . str_pad("$k", $c, ' ') . ' = ' . $v . PHP_EOL;
+   			$str .= PHP_EOL . str_repeat($wb, $n) . str_pad("$k", $c, ' ') . ' = ' . $v;
    		}
    		return $str;
     }

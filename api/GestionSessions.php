@@ -8,9 +8,38 @@ class GestionSessions {
     /**
      * @soap
      * @cli
+     * @return Models\Etablissement[]
+     */
+    public function getEtablissements() {
+        $repo = $GLOBALS['em']->getRepository('\\Models\\Etablissement');
+        return $repo->findAll();
+    }
+    
+    /**
+     * @soap
+     * @cli
+     * @return Models\Etablissement
+     */
+    public function getEtablissementById($id) {
+        $repo = $GLOBALS['em']->getRepository('\\Models\\Etablissement');
+        return $repo->findOneById($id);
+    }
+    
+    /**
+     * @soap
+     * @cli
+     * @return Models\Etablissement
+     */
+    public function getEtablissementByRacine($racine) {
+        $repo = $GLOBALS['em']->getRepository('\\Models\\Etablissement');
+        return $repo->findOneByRacine($racine);
+    }
+
+    /**
      * @return Models\Session[]
      */
     public function getSessions() {
+        // TODO
         return array();
     }
     
@@ -23,15 +52,6 @@ class GestionSessions {
     public function getSessionById($id) {
         $repo = $GLOBALS['em']->getRepository('\\Models\\Session');
         return $repo->findOneById(intval($id));
-    }
-    
-    /**
-     * @soap
-     * @cli
-     * @alias getSessionById
-     */
-    public function getSession($id) {
-        return $this->getSessionById($id);
     }
     
 }
