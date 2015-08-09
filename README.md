@@ -29,14 +29,21 @@ Finally, you can access system command line interface using:
 ./go.sh cli help
 ```
 
+Using API
+---------
+
+Command line:
 ```
-// Local CLI
 ./go.sh cli session get 848037
+```
 
-// REST API
+REST api:
+```
 http://your_host/api/GestionSessions/getSessionById.json?id=848037
+```
 
-// SOAP API
+SOAP api:
+```
 http://your_host/api/GestionSessions.wsdl
 ```
 
