@@ -13,31 +13,24 @@ AddDefaultCharset UTF-8
 # Handle HTML files as PHP
 AddHandler application/x-httpd-php .html .htm
 
+# PHP configuration
+<IfModule mod_php5.c>
+    php_value short_open_tag 1
+</IfModule>
+
 # Errors
 ErrorDocument 403 /www/error.html?e=403&m=Forbidden
 ErrorDocument 404 /www/error.html?e=404&m=Not+Found
 
-# Security
-#<Files system/*>
-#    Deny from all
-#</Files>
-#<Files models/*>
-#    Deny from all
-#</Files>
-#<Files config/*>
-#    Deny from all
-#</Files>
-#<Files api/*>
-#    Deny from all
-#</Files>
-
 # Enable rewrite engine
 RewriteEngine On
 RewriteBase /
-#RewriteLogLevel 3
-#RewriteLog "/home/ubuntu/workspace/rewrite.log"
-#LogLevel alert rewrite:trace6
-#LogLevel alert rewrite:trace3
+
+# Security
+RewriteCond %{REQUEST_URI} ^/config/.* [NC]
+RewriteRule ^config/(.*) - [F]
+RewriteCond %{REQUEST_URI} ^/models/.* [NC]
+RewriteRule ^models/(.*) - [F]
 
 # Web client
 RewriteCond %{REQUEST_URI} !^/www/.* [NC]

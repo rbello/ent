@@ -1,5 +1,12 @@
 <?php
 
+// Ensure access via /api/ url, not directly with /system/api.php
+if (substr($_SERVER['REQUEST_URI'], 0, 5) != '/api/') {
+    header('HTTP/1.0 403 Forbidden');
+    echo "403 Forbidden";
+    exit();
+}
+
 // Bootstrap
 include_once __DIR__ . '/bootstrap.php';
 
