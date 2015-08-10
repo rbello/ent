@@ -33,6 +33,10 @@ if (@!file_get_contents('https://ent-rbello.c9.io/res/google-map/google-map.html
     echo "Error: WWW /res/google-map/google-map.html\n";
 }
 
+if (@!file_get_contents('https://ent-rbello.c9.io/res/google-apis/google-maps-api.html')) {
+    echo "Error: WWW /res/google-apis/google-maps-api.html\n";
+}
+
 if (@!file_get_contents('https://ent-rbello.c9.io/js/ctrl.js')) {
     echo "Error: WWW /js/ctrl.js\n";
 }
