@@ -182,7 +182,7 @@ class SubCommand extends MethodCommand {
         
         // TODO checkPermission
         
-        return cap(
+        return capture(
             // Code to try
             function () use ($params) {
                 return call_user_func_array(

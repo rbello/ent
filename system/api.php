@@ -1,7 +1,7 @@
 <?php
 
 // Bootstrap
-include_once __DIR__ . '/init.php';
+include_once __DIR__ . '/bootstrap.php';
 
 // Liste des APIs disponibles
 //$apis = array();
@@ -56,11 +56,13 @@ if (!in_array($api, $list)) {
 include_once BASE . "api/{$api}.php";
 
 // On recherche l'implémentation
-if (!class_exists($api)) {
+if (!class_exists("\API\\{$api}")) {
     header('HTTP/1.0 500 Api Not Found');
     echo "500 Api Not Available ({$api})";
     exit();
 }
+
+$apiClass = "\API\\{$api}";
 
 $url = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['SERVER_NAME']}/api/";
 
@@ -73,7 +75,7 @@ if ($dn == 'wsdl') {
     header("Content-type: text/xml");
     
     // On construit la classe de conversion
-    $wsdl = new \PHP2WSDL\PHPClass2WSDL($api, "{$url}{$api}.soap");
+    $wsdl = new \PHP2WSDL\PHPClass2WSDL($apiClass, "{$url}{$api}.soap");
     
     // On lance la génération du WSDL
     $wsdl->generateWSDL(true);
@@ -96,8 +98,7 @@ else if ($dn == 'soap') {
         'trace'     => $config['debug'] ? 1 : 0,
 		'exception' => $config['debug'] ? 1 : 0
     ));
-    $handler = new $api();
-    $server->setObject($handler);
+    $server->setObject(api($api));
     $server->handle();
 }
 
@@ -112,10 +113,8 @@ else if ($dn == 'info') {
 
 else if ($dn == 'rest') {
     
-    $handler = new $api();
-    
     try {
-       $reflector = new \ReflectionMethod($api, $method);
+       $reflector = new \ReflectionMethod($apiClass, $method);
     }
     catch (\Exception $ex) {
         header('HTTP/1.0 404 Method Not Found');
@@ -153,7 +152,7 @@ else if ($dn == 'rest') {
         exit();
     }
     
-    $out = $reflector->invokeArgs($handler, $args);
+    $out = $reflector->invokeArgs(api($api), $args);
     
     header("Content-type: application/json");
     echo output_json($out);
@@ -161,7 +160,7 @@ else if ($dn == 'rest') {
 }
 
 
-// 
+// Error
 else {
     header('HTTP/1.0 400 Bad Request');
     echo "400 Bad Request (dn={$dn})";
