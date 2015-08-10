@@ -13,8 +13,9 @@ AddDefaultCharset UTF-8
 # Handle HTML files as PHP
 AddHandler application/x-httpd-php .html .htm
 
-# Erreur 404
-#ErrorDocument 404 error.html?e=404
+# Errors
+ErrorDocument 403 /www/error.html?e=403&m=Forbidden
+ErrorDocument 404 /www/error.html?e=404&m=Not+Found
 
 # Security
 #<Files system/*>
