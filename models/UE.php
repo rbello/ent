@@ -4,8 +4,6 @@ namespace Models;
 
 use Doctrine\ORM\Mapping as ORM;
 
-require_once 'Module.php';
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="ues")
