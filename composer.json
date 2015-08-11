@@ -10,6 +10,7 @@
     "require": {
         
         "php": ">=5.4.16",
+        "packagist/yuicompressor-bin": "*",
 
         "doctrine/orm": "*",
         "wingu/reflection": "~1.0",

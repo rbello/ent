@@ -35,6 +35,9 @@ case "$1" in
         bower install --save GoogleWebComponents/google-map
         echo "Update server dependencies..."
         composer update
+        echo "Generate CSS and JavaScripts..."
+        compass compile
+        ./go.sh js
         #echo "Generate entities..."
         #php $SCRIPT/system/lib/doctrine/orm/bin/doctrine orm:generate-entities --regenerate-entities=true --verbose --generate-annotations=true -- system
         #echo "Fix entities..."
@@ -62,13 +65,25 @@ case "$1" in
         compass watch --trace
         ;;
         
+    js)
+        cat www/js/utils.js www/js/main.js www/js/auth.js www/js/AppCtrl.js > www/res/ent.js
+        java -jar system/lib/bin/yuicompressor.jar www/res/ent.js -o www/res/ent-min.js
+        ;;
+        
+    compile)
+        ./go.sh js
+        compass compile
+        ;;
+        
     *)
         echo "Usage: setup <option>"
         echo "Options are:"
-        echo "   install            Installation du système."
+        echo "   install            Installation du système."s
         echo "   install-data       Installer les données samples."
         echo "   update             Mettre à jour les dépendances."
         echo "   css                Générer les fichiers CSS à partir des fichiers SASS."
+        echo "   js                 Générer les fichiers JS minifiés."
+        echo "   compile            Genérer CSS + JavaScripts"
         echo "   mapinf <entity>    Affiche les informations de mapping de l'entité."
         echo "   clean-db           Nettoyer toutes les données de la base."
         echo "   clean-all          Nettoyer tous les fichiers propres à l'installation."
