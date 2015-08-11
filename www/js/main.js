@@ -1,82 +1,10 @@
-'use strict';
 
-/**
- * @param Date begin
- * @param Date end
- * @return struct[] {title:string,date:Date}
- */
-function getSessionPeriodes(begin, end) {
-    begin = new Date(begin);
-    var names = [];
-    names[0] = "Jan";
-    names[1] = "Fev";
-    names[2] = "Mar";
-    names[3] = "Avr";
-    names[4] = "Mai";
-    names[5] = "Jun";
-    names[6] = "Jui";
-    names[7] = "Aou";
-    names[8] = "Sep";
-    names[9] = "Oct";
-    names[10] = "Nov";
-    names[11] = "Dec";
-    var periodes = {};
-    while (begin < end) {
-      periodes[names[begin.getMonth()] + "-" + begin.getFullYear()] = begin;
-      begin = new Date(begin.setMonth(begin.getMonth() + 1));
-    }
-    return periodes;
-}
+var app = angular.module('EntClientApp', ['ngMaterial', 'angular-storage', 'auth0', 'angular-jwt']);
 
 (function() {
     
     console.log("Go");
 
-    var app = angular.module('EntClientApp', ['ngMaterial', 'angular-storage', 'auth0', 'angular-jwt']);
-    
-    app.config(function (authProvider) {
-        authProvider.init({
-            domain:   'ent.eu.auth0.com',
-            clientID: 'BAZxb4JU6TN99UZ1bcJVepvmlMiCIxvR'
-        });
-    })
-    .run(function(auth) {
-        // This hooks al auth events to check everything as soon as the app starts
-        auth.hookEvents();
-    });
-    
-    app.controller('AppCtrl', function($scope, $timeout, $mdSidenav, $mdUtil, $log, auth, store, $location) {
-        
-        console.log("Init AppCtrl");
-        
-        $scope.toggleRight = buildToggler('sidenav');
-        
-        function buildToggler(navID) {
-          var debounceFn =  $mdUtil.debounce(function(){
-                $mdSidenav(navID)
-                  .toggle()
-                  .then(function () {
-                    $log.debug("toggle " + navID + " is done");
-                  });
-              },300);
-          return debounceFn;
-        }
-        
-        $scope.auth = {
-          login: function () {
-            auth.signin({}, function (profile, token) {
-              // Success callback
-              store.set('profile', profile);
-              store.set('token', token);
-              $location.path('/');
-            }, function () {
-              // Error callback
-            });
-          }
-        }
-        
-    });
-    
     app.controller('MenuCtrl', function($scope) {
         console.log("Init MenuCtrl");
         /*$scope.demo = {

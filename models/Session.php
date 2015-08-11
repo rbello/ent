@@ -16,6 +16,7 @@ class Session
      * 
      * @ORM\Id
      * @ORM\Column(type="integer")
+     * @var int
      **/
     public $id;
     
@@ -23,6 +24,7 @@ class Session
      * Nom courant pour cette session.
      * 
      * @ORM\Column(type="string")
+     * @var string
      **/
     public $name;
     
@@ -32,6 +34,7 @@ class Session
      * obligatoire, et ils sont recyclés tous les 10 ans.
      * 
      * @ORM\Column(type="string", length=10, unique=false, nullable=true)
+     * @var string
      **/
     public $codeAnalytique;
     
@@ -51,6 +54,7 @@ class Session
      *  - A1, A2, A3, A4, A5
      * 
      * @ORM\Column(type="string", columnDefinition="ENUM('A1', 'A2', 'A1+A2', 'A3', 'A3+4L', 'A3+A4R', 'A3L', 'A3R', 'A4', 'A4L', 'A4R', 'A5')") 
+     * @var string
      */
     public $sessionExiaType;
     
@@ -58,6 +62,7 @@ class Session
      * Date de début de la session.
      * 
      * @ORM\Column(type="date")
+     * 
      **/
     public $sessionBegin;
     
@@ -65,6 +70,7 @@ class Session
      * Date de fin de la session.
      * 
      * @ORM\Column(type="date")
+     * 
      **/
     public $sessionEnd;
     
@@ -72,6 +78,7 @@ class Session
      * Nombre total d'heures, en face-à-face pédagogique ou autre.
      * 
      * @ORM\Column(type="float")
+     * @var float
      **/
     public $durationHours;
     
@@ -79,6 +86,7 @@ class Session
      * L'année de rentrée correspondante, et non l'année de promotion.
      * 
      * @ORM\Column(type="integer", length=4)
+     * @var int
      **/
     public $year;
 

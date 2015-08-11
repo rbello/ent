@@ -14,11 +14,13 @@ class Produit
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
+     * @var int
      **/
-    protected $id;
+    public $id;
     
     /**
      * @ORM\Column(type="string")
+     * @var string
      **/
     public $name;
     
@@ -29,18 +31,19 @@ class Produit
     
     /**
      * @ORM\Column(type="date")
+     * 
      **/
     public $date;
     
     /**
      * @ORM\OneToMany(targetEntity="UE", mappedBy="product")
-     * @var UE[]
+     * @var Models\UE[]
      **/
     protected $ues = null;
     
     /**
      * @ORM\OneToMany(targetEntity="Session", mappedBy="product")
-     * @var Session[]
+     * @var Models\Session[]
      **/
     protected $sessions = null;
 

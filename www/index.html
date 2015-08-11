@@ -19,7 +19,7 @@ include (__DIR__ . '/../api/GestionCompteUtilisateur.php');
     <!-- FontAwesome -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Custom -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="res/style.css" />
 </head>
 <body ng-controller="AppCtrl" layout="column" layout-fill>
 
@@ -65,6 +65,19 @@ include (__DIR__ . '/../api/GestionCompteUtilisateur.php');
   
     <md-card>
       <md-card-content>
+        <table>
+          <tbody ng:repeat="e in data.etablissements">
+            <tr>
+              <td>{{e.name}}</td>
+              <td>{{e.racine}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </md-card-content>
+    </md-card>
+  
+    <md-card>
+      <md-card-content>
         <p>{{sessionStages.title}}</p>
         
         <md-subheader class="md-primary">Périodes de visite tuteur</md-subheader>
@@ -79,9 +92,9 @@ include (__DIR__ . '/../api/GestionCompteUtilisateur.php');
         </div>
         
         
-        <google-map latitude="{{sessionStages.lat}}" longitude="{{sessionStages.lng}}">
+        <!--<google-map latitude="{{sessionStages.lat}}" longitude="{{sessionStages.lng}}">
           <google-map-marker latitude="37.779" longitude="-122.3892" draggable="true" title="Go Giants!"></google-map-marker>
-        </google-map>
+        </google-map>-->
         <p style="clear:both">X</p>
         <!--<table ng-table>
           <thead>
@@ -139,7 +152,7 @@ include (__DIR__ . '/../api/GestionCompteUtilisateur.php');
 <script src="//cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
 <script src="//cdn.auth0.com/w2/auth0-angular-4.js"></script>
 <!-- Custom -->
-<script src="js/ctrl.js"></script>
+<script src="res/ent.js"></script>
 
 </body>
 </html>

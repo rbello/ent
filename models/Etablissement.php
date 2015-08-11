@@ -15,13 +15,20 @@ class Etablissement
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
+     * @var int
      **/
     public $id;
     
-    /** @ORM\Column(type="string") **/
+    /**
+     * @ORM\Column(type="string")
+     * @var string
+     **/
     public $name;
     
-    /** @ORM\Column(type="string", length=2, unique=true) **/
+    /**
+     * @ORM\Column(type="string", length=2, unique=true)
+     * @var string
+     **/
     public $racine;
     
     /**

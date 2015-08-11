@@ -39,3 +39,34 @@ function capture(\Closure $try, \Closure $catch) {
         restore_error_handler();
     }
 }
+
+/**
+ * Get the real type of an object, eaven for arrays.
+ */
+function get_type($var) {
+    // Cas particulier des tableaux
+    if (is_array($var)) {
+        // Tableau vide : indéterminé
+        if (empty($var)) {
+            return 'mixed[]';
+        }
+        // On va chercher le type du tableau
+        $type = null;
+        foreach ($var as $k => &$v) {
+            // C'est un tableau associatif
+            if (!is_int($k)) return 'struct';
+            // On a plusieurs types différents
+            $t = is_object($v) ? get_class($v) : gettype($v);
+            if ($type != null && $type != $t) return 'mixed[]';
+            $type = $t;
+        }
+        // On a déterminé le type du tableau
+        return $type . '[]';
+    }
+    // Cas particulier des objets : on donne le nom de la classe
+    else if (is_object($var)) {
+        return 'object:' . get_class($var);
+    }
+    // Sinon, on renvoie le type
+    return gettype($var);
+}

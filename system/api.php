@@ -15,37 +15,9 @@ include_once __DIR__ . '/bootstrap.php';
 //foreach (glob(BASE . 'api/*') as $k => &$v) { $x = str_replace('.php', '', basename($v)); $apis[strtolower($x)] = $x; }
 foreach ($list = glob(BASE . 'api/*.php') as $k => &$v) $v = str_replace('.php', '', basename($v));
 
-// 
+// Read client input data
 @list($dn, $api, $type, $method) = explode(' ', $_REQUEST['x--dn'], 4);
 unset($_REQUEST['x--dn']);
-
-function get_type($var) {
-    // Cas particulier des tableaux
-    if (is_array($var)) {
-        // Tableau vide : indéterminé
-        if (empty($var)) {
-            return 'mixed[]';
-        }
-        // On va chercher le type du tableau
-        $type = null;
-        foreach ($var as $k => &$v) {
-            // C'est un tableau associatif
-            if (!is_int($k)) return 'struct';
-            // On a plusieurs types différents
-            $t = is_object($v) ? get_class($v) : gettype($v);
-            if ($type != null && $type != $t) return 'mixed[]';
-            $type = $t;
-        }
-        // On a déterminé le type du tableau
-        return $type . '[]';
-    }
-    // Cas particulier des objets : on donne le nom de la classe
-    else if (is_object($var)) {
-        return 'object:' . get_class($var);
-    }
-    // Sinon, on renvoie le type
-    return gettype($var);
-}
 
 function output_json($value) {
     $r = array('rsp' => 200, 'typ' => get_type($value), 'val' => $value);
@@ -159,8 +131,10 @@ else if ($dn == 'rest') {
         exit();
     }
     
+    // TODO try catch
     $out = $reflector->invokeArgs(api($api), $args);
     
+    // TODO Type en fonction + ajouter XML + CSV
     header("Content-type: application/json");
     echo output_json($out);
     
