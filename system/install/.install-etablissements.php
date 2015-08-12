@@ -1,5 +1,7 @@
 <?php
 
+/////////// DEPRECATED
+
 echo "  Install Etablissements and Sessions...\n";
 
 $RACINES = array();

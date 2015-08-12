@@ -17,10 +17,6 @@ case "$1" in
         mkdir system/cache/sass
         ;;
         
-    clean-db)
-        php $SCRIPT/system/install/truncate-db.php
-        ;;
-        
     update)
         echo "Update dependencies..."
         composer update
@@ -46,9 +42,22 @@ case "$1" in
         php $SCRIPT/system/lib/doctrine/orm/bin/doctrine orm:schema-tool:create
         ;;
         
-    install-data)
-        echo "Install data..."
-        php $SCRIPT/system/install/installer.php
+    data)
+        if [ "$2" = "truncate" ]; then
+            php $SCRIPT/system/install/truncate-db.php
+        elif [ "$2" = "rebuild" ]; then
+            # Drop and recreate database
+            php $SCRIPT/system/install/rebuild-db.php
+            # Setup tables
+            php $SCRIPT/system/lib/doctrine/orm/bin/doctrine orm:schema-tool:create
+            # Install data
+            if [ ! -z "$3" ]; then
+                ./go.sh data $3
+            fi
+        else
+            echo "Install dataset '$2'..."
+            php $SCRIPT/system/install/installer.php $2
+        fi
         ;;
 
     mapinf)
@@ -76,17 +85,21 @@ case "$1" in
         ;;
         
     *)
-        echo "Usage: setup <option>"
-        echo "Options are:"
-        echo "   install            Installation du système."s
-        echo "   install-data       Installer les données samples."
-        echo "   update             Mettre à jour les dépendances."
-        echo "   css                Générer les fichiers CSS à partir des fichiers SASS."
-        echo "   js                 Générer les fichiers JS minifiés."
-        echo "   compile            Genérer CSS + JavaScripts"
-        echo "   mapinf <entity>    Affiche les informations de mapping de l'entité."
-        echo "   clean-db           Nettoyer toutes les données de la base."
-        echo "   clean-all          Nettoyer tous les fichiers propres à l'installation."
-        echo "   cli                Executer une commande sur le système via l'interface CLI."
+        echo "Usage: go.sh <option>"
+        echo "Setup:"
+        echo "   install                 Installation du système."
+        echo "   update                  Mettre à jour les dépendances."
+        echo "   clean-all               Nettoyer tous les fichiers propres à l'installation."
+        echo "Data:"
+        echo "   mapinf <entity>         Affiche les informations de mapping de l'entité."
+        echo "   data <dataset>          Installer les données samples."
+        echo "   data truncate           Nettoyer toutes les données de la base."
+        echo "   data rebuild [dataset]  Reconstruit la structure de la BDD à partir des entités."
+        echo "Generation:"
+        echo "   css                     Générer les fichiers CSS à partir des fichiers SASS."
+        echo "   js                      Générer les fichiers JS minifiés."
+        echo "   compile                 Genérer CSS + JavaScripts"
+        echo "Tools:"
+        echo "   cli <cmd>               Executer une commande sur le système via l'interface CLI."
         ;;
 esac

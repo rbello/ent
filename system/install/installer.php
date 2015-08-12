@@ -5,6 +5,16 @@ if (php_sapi_name() != 'cli') {
     exit("Error: must be run in CLI\n");
 }
 
+if (!isset($argv[1])) {
+    exit("Please give a dataset name.\n");
+}
+
+$dataset = $argv[1];
+
+if (!is_dir(__DIR__ . '/data/' . $dataset)) {
+    exit("Error: dataset not found.\n");
+}
+
 error_reporting(E_ALL);
 
 // On utilisera les modèles générés
@@ -14,8 +24,21 @@ error_reporting(E_ALL);
 $test_limit_data = false;
 
 // Initialisation
-include dirname(__FILE__) . '/../init.php';
+include dirname(__FILE__) . '/../bootstrap.php';
 echo "Running {$config['host']}\n";
+
+/**
+ * Affichage d'une progess bar
+ */
+function progressBar($done, $total) {
+    static $reference;
+    $perc = ceil(($done / $total) * 100);
+    if ($perc == $reference) return;
+    $reference = $perc;
+    $bar = "[" . ($perc > 0 ? str_repeat("=", $perc - 1) : "") . ">";
+    $bar .= str_repeat("-", 100 - $perc) . "]  $perc%  $done/$total";
+    echo "\033[0G$bar"; // Note the \033[0G. Put the cursor at the beginning of the line
+}
 
 /**
  * Fonction générique pour charger un fichier XMl.
@@ -48,9 +71,5 @@ $repoProduit = $em->getRepository('\\Models\\Produit');
 require_once BASE . 'models/Etudiant.php';
 include '.install-students.php';
 
-// 3 - On charge les établissements et les sessions
-require_once BASE . 'models/Etablissement.php';
-#include '.install-etablissements.php';
-
-// 4 - On charge les inscriptions
+// 3 - On charge les inscriptions
 include '.install-inscriptions.php';

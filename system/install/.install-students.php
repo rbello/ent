@@ -1,12 +1,15 @@
 <?php
 
-echo "  Install Students...";
+echo "  Install Students...\n";
 
-$xml = load_xml(BASE . 'system/install/data/Students.xml');
+$xml = load_xml(BASE . "system/install/data/{$dataset}/Students.xml");
 
 $repoStudent = $em->getRepository('\\Models\\Etudiant');
 
 $s = 0;
+$c = 0;
+
+$total = $xml->student->count();
 
 foreach ($xml->student as $student) {
     
@@ -15,6 +18,7 @@ foreach ($xml->student as $student) {
     
     if ($repoStudent->findOneBy(array('emailViacesi' => $contacts['viacesiMail']))) {
         // Doublon
+        progressBar($c++, $total);
         continue;
     }
     
@@ -41,8 +45,12 @@ foreach ($xml->student as $student) {
     
     if ($s++ > 99 && $test_limit_data) break;
     
+    progressBar($c++, $total);
+    
 }
 
 $em->flush();
+
+progressBar($c, $total);
 
 echo " OK!\n";

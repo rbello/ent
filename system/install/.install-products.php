@@ -1,10 +1,12 @@
 <?php
 
-echo "  Install Products, UE and Modules...";
+echo "  Install Products, UE and Modules...\n";
 
-//$fp = fopen(BASE . 'system/install/data/dump.sql', 'w');
+$xml = load_xml(BASE . "system/install/data/{$dataset}/Modules-X.xml");
 
-$xml = load_xml(BASE . 'system/install/data/Modules-X.xml');
+$total = $xml->produit->count();
+
+$i = 0;
 
 foreach ($xml->produit as $produit) {
     
@@ -18,6 +20,8 @@ foreach ($xml->produit as $produit) {
     $em->flush();
     
     $u = 0;
+    
+    $total += $produit->ue->count();
     
     foreach ($produit->ue as $ue) {
         
@@ -48,6 +52,8 @@ foreach ($xml->produit as $produit) {
         }
         
         $em->flush();*/
+
+        progressBar($i++, $total);
         
         if ($test_limit_data && $u++ > 4) break;
         
@@ -55,6 +61,10 @@ foreach ($xml->produit as $produit) {
     
     $em->flush();
     
+    progressBar($i++, $total);
+    
 }
+
+progressBar($i, $total);
 
 echo " OK!\n";

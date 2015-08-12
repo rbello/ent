@@ -3,7 +3,7 @@
 echo "  Install Etablissements, Sessions and Inscriptions...";
 
 // On parcours les racines des centres analytiques
-foreach (glob(BASE . '/system/install/data/Sessions*.xml') as $file) {
+foreach (glob(BASE . "/system/install/data/{$dataset}/Sessions*.xml") as $file) {
 
     // On recupère la racine
     $racine = substr(substr($file, -6), 0, 2);
@@ -21,12 +21,16 @@ foreach (glob(BASE . '/system/install/data/Sessions*.xml') as $file) {
     unset($data);
     
     // On parcours les années des promotions de ce centre
-    foreach (glob(BASE . "/system/install/data/{$racine}-*.xml") as $file) {
+    foreach (glob(BASE . "/system/install/data/{$dataset}/{$racine}-*.xml") as $file) {
 
         $promo = load_xml($file);
 
         echo " {$promo['year']}=";
         
+        // Compteur d'inscrits
+        $c = 0;
+    
+        // Compteur de sessions
         $s = 0;
         
         // On parcours les sessions
@@ -46,8 +50,6 @@ foreach (glob(BASE . '/system/install/data/Sessions*.xml') as $file) {
                 continue;
             }
             
-            echo "(";
-            
             // On a trouvé une session de plus
             $s++;
     
@@ -65,12 +67,9 @@ foreach (glob(BASE . '/system/install/data/Sessions*.xml') as $file) {
             $em->persist($submodel);
             $em->flush();
     
-            // Compteur d'inscrits
-            $c = 0;
-        
+
             $inscriptions = $session->students[0];
             if (!$inscriptions) {
-                echo "S{$s},E{$c})";
                 continue;
             }
             
@@ -101,12 +100,14 @@ foreach (glob(BASE . '/system/install/data/Sessions*.xml') as $file) {
             
             $em->flush();
         
-            echo "S{$s},E{$c})";
+
         
         }
+        
+        echo "(S{$s},E{$c})";
 
     }
     
 }
 
-echo "      OK!\n";
+echo "\n    OK!\n";
